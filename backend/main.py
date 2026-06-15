@@ -5,7 +5,7 @@ from groq import Groq
 from dotenv import load_dotenv
 import os
 import json
-from fastapi.responses import JSONResponse
+from fastapi.responses import Response, JSONResponse
 from fastapi import Request
 # Load environment variables
 load_dotenv()
@@ -29,15 +29,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-allow_origins=[
-    "https://scamshield-ai-omega.vercel.app",
-    "http://localhost:5173"
-],
+@app.middleware("http")
+async def cors_fix(request, call_next):
+    if request.method == "OPTIONS":
+        return Response(status_code=200)
+    return await call_next(request)
+
+@app.options("/analyze")
+def preflight():
+    return JSONResponse(content={"ok": True})
+
 
 # Request model
 class MessageRequest(BaseModel):
     text: str
-
 @app.get("/")
 def home():
     return {"message": "ScamShield AI Backend Running"}
