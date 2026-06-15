@@ -18,13 +18,15 @@ client = Groq(
 app = FastAPI(title="ScamShield AI")
 
 # CORS for React frontend
+origins = [
+    "http://localhost:5173",
+    "https://scamshield-ai-omega.vercel.app",
+    "https://scamshield-wine.vercel.app"
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://scamshield-ai-omega.vercel.app",
-        "https://scamshield-wine.vercel.app",
-        "http://localhost:5173"
-    ],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
