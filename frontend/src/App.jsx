@@ -21,10 +21,15 @@ function App() {
 
     try {
       const response = await axios.post(
-        "https://scamshield-ai-l2ra.onrender.com",
+        "https://scamshield-ai-l2ra.onrender.com/analyze",
         {
           text: message,
-        }
+        },
+         {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }
       );
 
       setResult(response.data);
