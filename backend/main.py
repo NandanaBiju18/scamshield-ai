@@ -5,7 +5,8 @@ from groq import Groq
 from dotenv import load_dotenv
 import os
 import json
-
+from fastapi.responses import JSONResponse
+from fastapi import Request
 # Load environment variables
 load_dotenv()
 
@@ -19,11 +20,19 @@ app = FastAPI(title="ScamShield AI")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+    "https://scamshield-ai-omega.vercel.app",
+    "http://localhost:5173"
+],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+allow_origins=[
+    "https://scamshield-ai-omega.vercel.app",
+    "http://localhost:5173"
+],
 
 # Request model
 class MessageRequest(BaseModel):
