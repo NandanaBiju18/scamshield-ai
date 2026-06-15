@@ -22,6 +22,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://scamshield-ai-omega.vercel.app",
+        "https://scamshield-wine.vercel.app",
         "http://localhost:5173"
     ],
     allow_credentials=True,
